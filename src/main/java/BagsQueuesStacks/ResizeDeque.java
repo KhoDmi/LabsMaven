@@ -1,6 +1,7 @@
 package BagsQueuesStacks;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class ResizeDeque<Item> implements Iterable<Item> {
     private int numOfElements;
@@ -67,11 +68,13 @@ public class ResizeDeque<Item> implements Iterable<Item> {
             return numOfElements > 0;
         }
 
+
         public Item next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
             return element[--i];
         }
 
-        public void remove() {
-        }
     }
 }
