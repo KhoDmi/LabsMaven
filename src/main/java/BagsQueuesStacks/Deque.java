@@ -1,6 +1,7 @@
 package BagsQueuesStacks;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class Deque<Item> implements Iterable<Item> {
 
@@ -84,12 +85,13 @@ public class Deque<Item> implements Iterable<Item> {
         }
 
         public Item next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
             i = i.next;
             return i.element;
         }
 
-        public void remove() {
-        }
     }
 
 }
