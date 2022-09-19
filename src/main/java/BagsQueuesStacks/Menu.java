@@ -27,7 +27,21 @@ public class Menu {
                         System.out.println("No such option, try again");
                         break;
                     case (1):
-                        dequeTest();
+                        for (; ; ) {
+                            System.out.println("1.Doubly linked list or 2.Resizing array?");
+                             try {
+                                 answer = userInp.nextLine();
+                                 choice = Integer.parseInt(answer);
+                            } catch (NumberFormatException e) {
+                                choice = 0;
+                            }
+                             if (choice!=1 && choice!=2)
+                                 System.out.println("No such option, try again");
+                             else break;
+                        }
+                        if (choice==1)
+                            dequeTest();
+                        else resizeDequeTest();
                         break;
                     case (2):
 
@@ -67,13 +81,13 @@ public class Menu {
     }
 
     public static void dequeTest() {
-        System.out.println("Basic test result:\n");
+        System.out.println("Basic test result (expected: true 0 5 6 7 8 OK):");
         Deque<Integer> testDeque = new Deque<>();
         System.out.println(testDeque.isEmpty());
         System.out.println(testDeque.size());
         testDeque.pushLeft(6);
-        testDeque.pushRight(7);
         testDeque.pushRight(8);
+        testDeque.pushRight(7);
         testDeque.pushLeft(5);
         try {
             System.out.println(testDeque.popLeft());
@@ -101,6 +115,7 @@ public class Menu {
                 } catch (NumberFormatException e) {
                     choice = 0;
                 }
+                if (choice>10) choice=0;
                 switch (choice) {
                     case (0):
                         System.out.println("No such option, try again");
@@ -143,6 +158,86 @@ public class Menu {
             System.out.println("Something went wrong");
         }
     }
+
+    public static void resizeDequeTest() {
+        System.out.println("Basic test result (expected: true 0 5 6 7 8 OK):");
+        ResizeDeque<Integer> resizeDequeTest = new ResizeDeque<>();
+        System.out.println(resizeDequeTest.isEmpty());
+        System.out.println(resizeDequeTest.size());
+        resizeDequeTest.pushLeft(6);
+        resizeDequeTest.pushRight(8);
+        resizeDequeTest.pushRight(7);
+        resizeDequeTest.pushLeft(5);
+        try {
+            System.out.println(resizeDequeTest.popLeft());
+            System.out.println(resizeDequeTest.popLeft());
+            System.out.println(resizeDequeTest.popRight());
+            System.out.println(resizeDequeTest.popRight());
+        } catch (NullPointerException e) {
+            System.out.println("Deque is empty\n");
+        }
+        System.out.println("OK\n");
+
+        System.out.println("List of options :\n" +
+                "1.isEmpty()\n" + "2.size()\n" +
+                "3.pushLeft(String string)\n" +
+                "4.pushRight(String string)\n" +
+                "5.popLeft()\n" + "6.popRight\n" + "7.Exit\n");
+        try {
+            int exitStatus = 0;
+            ResizeDeque<String> manualResizeTestDeque = new ResizeDeque<>();
+            for (; ; ) {
+                answer = userInp.nextLine();
+                int choice;
+                try {
+                    choice = Integer.parseInt(answer);
+                } catch (NumberFormatException e) {
+                    choice = 0;
+                }
+                if (choice>7) choice=0;
+                switch (choice) {
+                    case (0):
+                        System.out.println("No such option, try again");
+                        break;
+                    case (1):
+                        System.out.println(manualResizeTestDeque.isEmpty());
+                        break;
+                    case (2):
+                        System.out.println(manualResizeTestDeque.size());
+                        break;
+                    case (3):
+                        System.out.println("Input string to push left:\n");
+                        manualResizeTestDeque.pushLeft(userInp.nextLine());
+                        break;
+                    case (4):
+                        System.out.println("Input string to push right:\n");
+                        manualResizeTestDeque.pushRight(userInp.nextLine());
+                        break;
+                    case (5):
+                        try {
+                            System.out.println(manualResizeTestDeque.popLeft());
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            System.out.println("Deque is empty\n");
+                        }
+                        break;
+                    case (6):
+                        try {
+                            System.out.println(manualResizeTestDeque.popRight());
+                        } catch (ArrayIndexOutOfBoundsException e) {
+                            System.out.println("Deque is empty\n");
+                        }
+                        break;
+                    case (7):
+                        exitStatus = 1;
+                        break;
+                }
+                if (exitStatus == 1) break;
+            }
+        } catch (Exception e) {
+            System.out.println("Something went wrong");
+        }
+    }
+
 }
 
 
