@@ -1,11 +1,9 @@
 package BagsQueuesStacks;
 
 import java.util.Iterator;
-//import java.util.Scanner;
 
 public class Deque<Item> implements Iterable<Item> {
-    //Scanner userInp = new Scanner(System.in);
-    //String answer;
+
     private class Node {
         Item element;
         Node next;
