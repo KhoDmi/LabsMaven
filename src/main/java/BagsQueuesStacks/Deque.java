@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
 public class Deque<Item> implements Iterable<Item> {
 
     private class Node {
-        Item element;
+        Item elements;
         Node next;
         Node prev;
     }
@@ -30,7 +30,7 @@ public class Deque<Item> implements Iterable<Item> {
     public void pushLeft(Item item) {
         Node old = first;
         first = new Node();
-        first.element = item;
+        first.elements = item;
         first.next = old;
         if (isEmpty()) last = first;
         else old.prev = first;
@@ -40,7 +40,7 @@ public class Deque<Item> implements Iterable<Item> {
     public void pushRight(Item item) {
         Node old = last;
         last = new Node();
-        last.element = item;
+        last.elements = item;
         last.prev = old;
         if (isEmpty()) first = old;
         else old.next = last;
@@ -48,7 +48,7 @@ public class Deque<Item> implements Iterable<Item> {
     }
 
     public Item popLeft() {
-        Item item = first.element;
+        Item item = first.elements;
         if (numOfElements==1) {
             first = null;
             last = null;
@@ -61,7 +61,7 @@ public class Deque<Item> implements Iterable<Item> {
     }
 
     public Item popRight() {
-        Item item = last.element;
+        Item item = last.elements;
         if (numOfElements==1) {
             first = null;
             last = null;
@@ -89,7 +89,7 @@ public class Deque<Item> implements Iterable<Item> {
                 throw new NoSuchElementException();
             }
             i = i.next;
-            return i.element;
+            return i.elements;
         }
 
     }

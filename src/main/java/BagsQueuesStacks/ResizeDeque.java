@@ -10,7 +10,7 @@ public class ResizeDeque<Item> implements Iterable<Item> {
         numOfElements = 0;
     }
 
-    private Item[] element = (Item[]) new Object[1];
+    private Item[] elements = (Item[]) new Object[1];
 
     public Boolean isEmpty() {
         return numOfElements == 0;
@@ -23,37 +23,37 @@ public class ResizeDeque<Item> implements Iterable<Item> {
     private void resize(int newSize) {
         Item[] temp = (Item[]) new Object[newSize];
         if (numOfElements >= 0)
-            System.arraycopy(element, 0, temp, 0, numOfElements);
-        element = temp;
+            System.arraycopy(elements, 0, temp, 0, numOfElements);
+        elements = temp;
     }
 
     public void pushLeft(Item item) {
-        if (element.length - numOfElements < 1 && element.length > 0) resize(2 * element.length);
+        if (elements.length - numOfElements < 1 && elements.length > 0) resize(2 * elements.length);
         for (int i = numOfElements; i > 0; i--)
-            element[i] = element[i - 1];
+            elements[i] = elements[i - 1];
         numOfElements++;
-        element[0] = item;
+        elements[0] = item;
     }
 
     public void pushRight(Item item) {
-        if (element.length - numOfElements < 1 && element.length > 0) resize(2 * element.length);
-        element[numOfElements++] = item;
+        if (elements.length - numOfElements < 1 && elements.length > 0) resize(2 * elements.length);
+        elements[numOfElements++] = item;
     }
 
     public Item popLeft() {
-        Item item = element[0];
+        Item item = elements[0];
         for (int i = 0; i < numOfElements-1; i++)
-            element[i] = element[i+1];
-        element[--numOfElements] = null;
-        if (numOfElements < element.length / 4) resize(element.length / 2);
+            elements[i] = elements[i+1];
+        elements[--numOfElements] = null;
+        if (numOfElements < elements.length / 4) resize(elements.length / 2);
         return item;
     }
 
     public Item popRight() {
-        Item item = element[numOfElements - 1];
-        element[numOfElements - 1] = null;
+        Item item = elements[numOfElements - 1];
+        elements[numOfElements - 1] = null;
         numOfElements--;
-        if (numOfElements < element.length / 4) resize(element.length / 2);
+        if (numOfElements < elements.length / 4) resize(elements.length / 2);
         return item;
     }
 
@@ -73,7 +73,7 @@ public class ResizeDeque<Item> implements Iterable<Item> {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-            return element[--i];
+            return elements[--i];
         }
 
     }
