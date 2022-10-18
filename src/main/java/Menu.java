@@ -7,6 +7,7 @@ import Sorts.CaliforniaElectionCandidate;
 import StringSorts.Alphabet;
 import StringSorts.LSDsort;
 import StringSorts.MSDsort;
+import TernarySearchTrees.TST;
 
 import java.lang.reflect.Array;
 import java.util.*;
@@ -24,7 +25,7 @@ public class Menu {
                         "1.Deque\n" + "2.CaliforniaElection\n" +
                         "3.BinTreePrint\n" + "4.RedBlackTreeVerification\n" +
                         "5.LazyDeletion\n" + "6.Alphabet\n" +
-                        "7.\n" + "8.\n" +
+                        "7.NumberOfLStrings\n" + "8.\n" +
                         "9.\n" + "10.Exit\n");
                 answer = userInp.nextLine();
                 int choice;
@@ -70,7 +71,7 @@ public class Menu {
                         alphabetTest();
                         break;
                     case (7):
-
+                        testNumIfLStr();
                         break;
                     case (8):
 
@@ -471,6 +472,80 @@ public class Menu {
         }
         System.out.println();
         System.out.println("----------");
+    }
+
+    public static void numOfSubstrings(String s, int L) {
+        TST<Integer> tst = new TST<>();
+        tst.clear();
+        int num = 0;
+        String subs;
+        for (int i = 0; i < s.length() - L; i++) {
+            subs = s.substring(i, i + L);
+            if (tst.containsNullKey(subs))
+                continue;
+            tst.put(subs, null);
+            num++;
+            System.out.print("Unique key " + num + ": ");
+            System.out.println(subs);
+        }
+        tst.clear();
+        System.out.println("Number of " + L + "-letter substrings in string " + s + " is: " + num);
+    }
+    public static void testNumIfLStr() {
+        TST<Integer> tst = new TST<>();
+        String s="cgcgggcgcg";
+        Integer L=3;
+        numOfSubstrings(s,L);
+        System.out.println("List of options :\n" +
+                "1.Check another string\n" + "2.Exit\n");
+        try {
+            int exitStatus = 0;
+            for (; ; ) {
+                answer = userInp.nextLine();
+                Integer choice;
+                try {
+                    choice = Integer.parseInt(answer);
+                } catch (NumberFormatException e) {
+                    choice = -1;
+                }
+                if (choice > 2) choice = 0;
+                switch (choice) {
+                    case (0):
+                        System.out.println("No such option, try again");
+                        System.out.println("----------");
+                        break;
+                    case (1):
+                        System.out.println("Input string\n");
+                        answer="";
+                        while (answer.equals("")){
+                            answer = userInp.nextLine();
+                        }
+                        s=answer;
+                        L = 0;
+
+                        System.out.println("Input length of substrings\n");
+                        while (L < 1) {
+                            answer = userInp.nextLine();
+                            try {
+                                L = Integer.parseInt(answer);
+                            } catch (NumberFormatException e) {
+                                L = 0;
+                                System.out.println("Illegal option, try again\n");
+                            }
+                        }
+
+                        numOfSubstrings(s,L);
+                        System.out.println("----------");
+                        break;
+                    case (2):
+                        exitStatus = 1;
+                        break;
+                }
+                if (exitStatus == 1) break;
+            }
+        } catch (Exception e) {
+            System.out.println("Something went wrong");
+        }
     }
 }
 

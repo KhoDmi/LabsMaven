@@ -11,24 +11,24 @@ public class MSDsort {
         sort(alpha, a, 0, N - 1, 0, aux);
     }
 
-    private static int charAt(Alphabet alpha, String s, int d) {
-        assert d >= 0 && d <= s.length();
-        if (d == s.length()) return -1;
-        return alpha.toIndex(s.charAt(d));
+    private static int charAt(Alphabet alpha, String s, int pos) {
+        assert pos >= 0 && pos <= s.length();
+        if (pos == s.length()) return -1;
+        return alpha.toIndex(s.charAt(pos));
     }
 
-    private static void sort(Alphabet alpha, String[] a, int lo, int hi, int d, String[] aux) {
+    private static void sort(Alphabet alpha, String[] a, int lo, int hi, int pos, String[] aux) {
 
         int R = alpha.radix();
 
         if (hi <= lo + CUTOFF) {
-            insertion(alpha, a, lo, hi, d);
+            insertion(alpha, a, lo, hi, pos);
             return;
         }
 
         int[] count = new int[R + 2];
         for (int i = lo; i <= hi; i++) {
-            int c = charAt(alpha, a[i], d);
+            int c = charAt(alpha, a[i], pos);
             count[c + 2]++;
         }
 
@@ -36,7 +36,7 @@ public class MSDsort {
             count[r + 1] += count[r];
 
         for (int i = lo; i <= hi; i++) {
-            int c = charAt(alpha, a[i], d);
+            int c = charAt(alpha, a[i], pos);
             aux[count[c + 1]++] = a[i];
         }
 
@@ -44,7 +44,7 @@ public class MSDsort {
             a[i] = aux[i - lo];
 
         for (int r = 0; r < R; r++)
-            sort(alpha, a, lo + count[r], lo + count[r + 1] - 1, d + 1, aux);
+            sort(alpha, a, lo + count[r], lo + count[r + 1] - 1, pos + 1, aux);
     }
 
     private static void insertion(Alphabet alpha, String[] a, int lo, int hi, int d) {
@@ -59,10 +59,10 @@ public class MSDsort {
         a[j] = temp;
     }
 
-    private static boolean less(Alphabet alpha, String v, String w, int d) {
-        assert v.substring(0, d).equals(w.substring(0, d));
+    private static boolean less(Alphabet alpha, String v, String w, int pos) {
+        assert v.substring(0, pos).equals(w.substring(0, pos));
         boolean less = false;
-        for (int i = d; i < v.length() && i < w.length(); i++) {
+        for (int i = pos; i < v.length() && i < w.length(); i++) {
             if (alpha.toIndex(v.charAt(i)) > alpha.toIndex(w.charAt(i)))
                 break;
             if (alpha.toIndex(v.charAt(i)) < alpha.toIndex(w.charAt(i))) {
