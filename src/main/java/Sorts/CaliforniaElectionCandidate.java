@@ -11,6 +11,14 @@ public class CaliforniaElectionCandidate implements Comparable<CaliforniaElectio
     }
 
     public CaliforniaElectionCandidate(String name) {
+        char[] letters = name.toCharArray();
+        for (int j = 0; j < letters.length; j++){
+            try{
+                californiaAlphabet.valueOf(Character.toString(letters[j])).ordinal();
+            } catch (Exception e){
+                System.out.println("Name should contain only capital latin letters");
+            }
+        }
         candidateName = name;
     }
 
@@ -23,14 +31,6 @@ public class CaliforniaElectionCandidate implements Comparable<CaliforniaElectio
     @Override
     public int compareTo(CaliforniaElectionCandidate another) {
         char[] letters = this.candidateName.toCharArray();
-        for (int j = 0; j < letters.length; j++){
-            try{
-                californiaAlphabet.valueOf(Character.toString(letters[j])).ordinal();
-            } catch (Exception e){
-                System.out.println("Name should contain only capital latin letters");
-                return NULL;
-            }
-        }
         for (int j = 0; j < letters.length; j++) {
             letters[j] = (char) (californiaAlphabet.
                     valueOf(Character.toString(letters[j])).

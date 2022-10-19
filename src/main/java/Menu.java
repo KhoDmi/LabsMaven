@@ -8,6 +8,7 @@ import StringSorts.Alphabet;
 import StringSorts.LSDsort;
 import StringSorts.MSDsort;
 import TernarySearchTrees.TST;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Array;
 import java.util.*;
@@ -131,25 +132,20 @@ public class Menu {
                 switch (choice) {
                     case (0):
                         System.out.println("No such option, try again");
-                        System.out.println("----------");
                         break;
                     case (1):
                         System.out.println(manualTestDeque.isEmpty());
-                        System.out.println("----------");
                         break;
                     case (2):
                         System.out.println(manualTestDeque.size());
-                        System.out.println("----------");
                         break;
                     case (3):
                         System.out.println("Input string to push left:\n");
                         manualTestDeque.pushLeft(userInp.nextLine());
-                        System.out.println("----------");
                         break;
                     case (4):
                         System.out.println("Input string to push right:\n");
                         manualTestDeque.pushRight(userInp.nextLine());
-                        System.out.println("----------");
                         break;
                     case (5):
                         try {
@@ -157,7 +153,6 @@ public class Menu {
                         } catch (NullPointerException e) {
                             System.out.println("Deque is empty\n");
                         }
-                        System.out.println("----------");
                         break;
                     case (6):
                         try {
@@ -165,13 +160,18 @@ public class Menu {
                         } catch (NullPointerException e) {
                             System.out.println("Deque is empty\n");
                         }
-                        System.out.println("----------");
                         break;
                     case (7):
                         exitStatus = 1;
                         break;
                 }
                 if (exitStatus == 1) break;
+                System.out.println("----------\n" +
+                        "List of options :\n" +
+                        "1.isEmpty()\n" + "2.size()\n" +
+                        "3.pushLeft(String string)\n" +
+                        "4.pushRight(String string)\n" +
+                        "5.popLeft()\n" + "6.popRight\n" + "7.Exit\n");
             }
         } catch (Exception e) {
             System.out.println("Something went wrong");
@@ -217,25 +217,20 @@ public class Menu {
                 switch (choice) {
                     case (0):
                         System.out.println("No such option, try again");
-                        System.out.println("----------");
                         break;
                     case (1):
                         System.out.println(manualResizeTestDeque.isEmpty());
-                        System.out.println("----------");
                         break;
                     case (2):
                         System.out.println(manualResizeTestDeque.size());
-                        System.out.println("----------");
                         break;
                     case (3):
                         System.out.println("Input string to push left:\n");
                         manualResizeTestDeque.pushLeft(userInp.nextLine());
-                        System.out.println("----------");
                         break;
                     case (4):
                         System.out.println("Input string to push right:\n");
                         manualResizeTestDeque.pushRight(userInp.nextLine());
-                        System.out.println("----------");
                         break;
                     case (5):
                         try {
@@ -243,7 +238,6 @@ public class Menu {
                         } catch (ArrayIndexOutOfBoundsException e) {
                             System.out.println("Deque is empty\n");
                         }
-                        System.out.println("----------");
                         break;
                     case (6):
                         try {
@@ -251,13 +245,18 @@ public class Menu {
                         } catch (ArrayIndexOutOfBoundsException e) {
                             System.out.println("Deque is empty\n");
                         }
-                        System.out.println("----------");
                         break;
                     case (7):
                         exitStatus = 1;
                         break;
                 }
                 if (exitStatus == 1) break;
+                System.out.println("----------\n" +
+                        "List of options :\n" +
+                        "1.isEmpty()\n" + "2.size()\n" +
+                        "3.pushLeft(String string)\n" +
+                        "4.pushRight(String string)\n" +
+                        "5.popLeft()\n" + "6.popRight\n" + "7.Exit\n");
             }
         } catch (Exception e) {
             System.out.println("Something went wrong");
@@ -296,7 +295,6 @@ public class Menu {
                 switch (choice) {
                     case (0):
                         System.out.println("No such option, try again");
-                        System.out.println("----------");
                         break;
                     case (1):
                         System.out.println("Input name\n");
@@ -312,19 +310,21 @@ public class Menu {
                             System.out.println("String should contain only capital latin letters");
                             break;
                         }
-                        candidates.add(new CaliforniaElectionCandidate(userInp.nextLine()));
-                        System.out.println("----------");
+                        candidates.add(new CaliforniaElectionCandidate(inp));
                         break;
                     case (2):
                         Collections.sort(candidates);
                         candidates.forEach(e -> System.out.println(e.getName()));
-                        System.out.println("----------");
                         break;
                     case (3):
                         exitStatus = 1;
                         break;
                 }
                 if (exitStatus == 1) break;
+                System.out.println("-----------\n" +
+                        "List of options :\n" +
+                        "1.addNewCandidate\n" + "2.sort\n" +
+                        "3.Exit\n");
             }
         } catch (Exception e) {
             System.out.println("Something went wrong");
@@ -361,7 +361,6 @@ public class Menu {
                 switch (choice) {
                     case (0):
                         System.out.println("No such option, try again");
-                        System.out.println("----------");
                         break;
                     case (1):
                         System.out.println("Input key\n");
@@ -374,13 +373,15 @@ public class Menu {
                         if (tree.getNodeByKey(choice) == null)
                             System.out.println("No such option, try again");
                         else tree.printLevel(tree.getNodeByKey(choice));
-                        System.out.println("----------");
                         break;
                     case (2):
                         exitStatus = 1;
                         break;
                 }
                 if (exitStatus == 1) break;
+                System.out.println("----------" +
+                        "List of options :\n" +
+                        "1.Choose another key\n" + "2.Exit\n");
             }
         } catch (Exception e) {
             System.out.println("Something went wrong");
@@ -474,7 +475,7 @@ public class Menu {
         System.out.println("----------");
     }
 
-    public static void numOfSubstrings(String s, int L) {
+    public static void numOfSubstrings(@NotNull String s, int L) {
         TST<Integer> tst = new TST<>();
         tst.clear();
         int num = 0;
@@ -512,7 +513,6 @@ public class Menu {
                 switch (choice) {
                     case (0):
                         System.out.println("No such option, try again");
-                        System.out.println("----------");
                         break;
                     case (1):
                         System.out.println("Input string\n");
@@ -535,13 +535,15 @@ public class Menu {
                         }
 
                         numOfSubstrings(s,L);
-                        System.out.println("----------");
                         break;
                     case (2):
                         exitStatus = 1;
                         break;
                 }
                 if (exitStatus == 1) break;
+                System.out.println("----------" +
+                        "List of options :\n" +
+                        "1.Check another string\n" + "2.Exit\n");
             }
         } catch (Exception e) {
             System.out.println("Something went wrong");
