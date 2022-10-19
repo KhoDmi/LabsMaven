@@ -8,9 +8,9 @@ import StringSorts.Alphabet;
 import StringSorts.LSDsort;
 import StringSorts.MSDsort;
 import TernarySearchTrees.TST;
-import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.Array;
+
+
 import java.util.*;
 
 public class Menu {
@@ -379,7 +379,7 @@ public class Menu {
                         break;
                 }
                 if (exitStatus == 1) break;
-                System.out.println("----------" +
+                System.out.println("----------\n" +
                         "List of options :\n" +
                         "1.Choose another key\n" + "2.Exit\n");
             }
@@ -475,7 +475,7 @@ public class Menu {
         System.out.println("----------");
     }
 
-    public static void numOfSubstrings(@NotNull String s, int L) {
+    public static void numOfSubstrings(String s, int L) {
         TST<Integer> tst = new TST<>();
         tst.clear();
         int num = 0;
@@ -541,7 +541,7 @@ public class Menu {
                         break;
                 }
                 if (exitStatus == 1) break;
-                System.out.println("----------" +
+                System.out.println("----------\n" +
                         "List of options :\n" +
                         "1.Check another string\n" + "2.Exit\n");
             }

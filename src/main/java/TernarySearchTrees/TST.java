@@ -71,22 +71,5 @@ public class TST<Value> {
         return node;
     }
 
-    public int numOfSubstrings(String s, int L) {
-        this.clear();
-        int num = 0;
-        String subs;
-        for (int i = 0; i < s.length() - L; i++) {
-            subs = s.substring(i, i + L);
-            if (this.containsNullKey(subs))
-                continue;
-            this.put(subs, null);
-            num++;
-            System.out.print("Unique key " + num + ": ");
-            System.out.println(subs);
-        }
-        this.clear();
-        System.out.println("Number of " + L + "-letter substrings in string " + s + " is: " + num);
-        return num;
-    }
 }
 
