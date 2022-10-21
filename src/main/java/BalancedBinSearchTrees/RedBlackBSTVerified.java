@@ -31,6 +31,14 @@ public class RedBlackBSTVerified<Key extends Comparable<Key>, Value> {
         return root == null;
     }
 
+    public boolean contains(Key key) {
+        return (getValue(key) != null);
+    }
+
+    private boolean contains(Node node, Key key) {
+        return (getValue(node, key) != null);
+    }
+
     private boolean isRed(Node node) {
         if (node == null) return false;
         return (node.color == RED);
@@ -58,7 +66,103 @@ public class RedBlackBSTVerified<Key extends Comparable<Key>, Value> {
         assert check();
     }
 
-    // make a right-leaning link lean to the left
+    public void delete(Key key) {
+        if (!contains(key)) {
+            System.err.println("No key " + key);
+            return;
+        }
+
+        if (!isRed(root.left) && !isRed(root.right))
+            root.color = RED;
+
+        root = delete(root, key);
+        if (!isEmpty())
+            root.color = BLACK;
+        assert check();
+    }
+
+    private Node deleteMin(Node node) {
+        if (node.left == null)
+            return null;
+
+        if (!isRed(node.left) && !isRed(node.left.left))
+            node = moveRedLeft(node);
+
+        node.left = deleteMin(node.left);
+        return balance(node);
+    }
+    public Key min() {
+        if (isEmpty())
+            return null;
+        return min(root).key;
+    }
+    private Node min(Node node) {
+        assert node != null;
+        if (node.left == null)
+            return node;
+        else
+            return min(node.left);
+    }
+
+    private Node moveRedLeft(Node node) {
+        assert (node != null);
+        assert isRed(node) && !isRed(node.left) && !isRed(node.left.left);
+
+        flipColors(node);
+        if (isRed(node.right.left)) {
+            node.right = rotateRight(node.right);
+            node = rotateLeft(node);
+        }
+        return node;
+    }
+
+    private Node moveRedRight(Node node) {
+        assert (node != null);
+        assert isRed(node) && !isRed(node.right) && !isRed(node.right.left);
+        flipColors(node);
+        if (isRed(node.left.left)) {
+            node = rotateRight(node);
+        }
+        return node;
+    }
+
+    private Node balance(Node node) {
+        assert (node != null);
+
+        if (isRed(node.right))
+            node = rotateLeft(node);
+        if (isRed(node.left) && isRed(node.left.left))
+            node = rotateRight(node);
+        if (isRed(node.left) && isRed(node.right))
+            flipColors(node);
+        node.size = getSize(node.left) + getSize(node.right) + 1;
+        return node;
+    }
+
+    private Node delete(Node node, Key key) {
+        assert contains(node, key);
+
+        if (key.compareTo(node.key) < 0)  {
+            if (!isRed(node.left) && !isRed(node.left.left))
+                node = moveRedLeft(node);
+            node.left = delete(node.left, key);
+        }
+        else {
+            if (isRed(node.left))
+                node = rotateRight(node);
+            if (key.compareTo(node.key) == 0 && (node.right == null))
+                return null;
+            if (!isRed(node.right) && !isRed(node.right.left))
+                node = moveRedRight(node);
+            if (key.compareTo(node.key) == 0) {
+                node.val = getValue(node.right, min(node.right).key);
+                node.key = min(node.right).key;
+                node.right = deleteMin(node.right);
+            }
+            else node.right = delete(node.right, key);
+        }
+        return balance(node);
+    }
     private Node rotateLeft(Node node) {
         assert (node != null) && isRed(node.right);
         Node newnode = node.right;

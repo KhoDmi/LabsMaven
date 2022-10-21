@@ -10,7 +10,6 @@ import StringSorts.MSDsort;
 import TernarySearchTrees.TST;
 
 
-
 import java.util.*;
 
 public class Menu {
@@ -282,6 +281,7 @@ public class Menu {
                 "1.addNewCandidate\n" + "2.sort\n" +
                 "3.Exit\n");
         try {
+            CaliforniaElectionCandidate toAdd;
             int exitStatus = 0;
             for (; ; ) {
                 answer = userInp.nextLine();
@@ -299,18 +299,13 @@ public class Menu {
                     case (1):
                         System.out.println("Input name\n");
                         String inp = userInp.nextLine();
-                        inp = inp.toUpperCase();
-                        char[] letters = inp.toCharArray();
-                        int i = 0;
-                        for (i = 0; i < inp.length(); i++) {
-                            if ((int) letters[i] < 65 || (int) letters[i] > 90)
-                                break;
+                        try{
+                             toAdd = new CaliforniaElectionCandidate(inp);
+                             candidates.add(toAdd);
                         }
-                        if (i < inp.length()) {
-                            System.out.println("String should contain only capital latin letters");
-                            break;
+                        catch(Exception e){
+                            System.out.println(e.getMessage());
                         }
-                        candidates.add(new CaliforniaElectionCandidate(inp));
                         break;
                     case (2):
                         Collections.sort(candidates);
@@ -332,7 +327,7 @@ public class Menu {
     }
 
     public static void binTreesTest() {
-        BSTLeveled tree = new BSTLeveled();
+        BSTLeveled<Integer,String> tree = new BSTLeveled<>();
         tree.put(4, "q");
         tree.put(2, "w");
         tree.put(1, "e");
@@ -389,7 +384,7 @@ public class Menu {
     }
 
     public static void redBlackTreeVerificationTest() {
-        RedBlackBSTVerified tree = new RedBlackBSTVerified();
+        RedBlackBSTVerified<Integer,String> tree = new RedBlackBSTVerified<>();
         tree.put(4, "q");
         tree.put(2, "w");
         tree.put(1, "e");
@@ -401,10 +396,76 @@ public class Menu {
         tree.put(5, "o");
         tree.put(0, "p");
         System.out.println(tree.check());
+        System.out.println("List of options :\n" +
+                "1.Add new element\n" + "2.Delete element\n" +
+                "3.Check tree\n" + "4.Exit\n");
+        try {
+            int exitStatus = 0;
+            for (; ; ) {
+                answer = userInp.nextLine();
+                Integer choice;
+                try {
+                    choice = Integer.parseInt(answer);
+                } catch (NumberFormatException e) {
+                    choice = -1;
+                }
+                if (choice > 4) choice = 0;
+                switch (choice) {
+                    case (0):
+                        System.out.println("No such option, try again");
+                        break;
+                    case (1):
+                        System.out.println("Input key\n");
+                        answer = userInp.nextLine();
+                        try {
+                            choice = Integer.parseInt(answer);
+                        } catch (NumberFormatException e) {
+                            choice = null;
+                            System.out.println("Illegal key");
+                            break;
+                        }
+                        System.out.println("Input value\n");
+                        answer = "";
+                        while (answer.equals("")) {
+                            answer = userInp.nextLine();
+                        }
+                        break;
+                    case (2):
+                        System.out.println("Input key\n");
+                        answer = userInp.nextLine();
+                        try {
+                            choice = Integer.parseInt(answer);
+                        } catch (NumberFormatException e) {
+                            choice = null;
+                            System.out.println("Illegal key");
+                            break;
+                        }
+                        if (!tree.contains(choice)){
+                            System.out.println("no such key");
+                            break;
+                        }
+                        tree.delete(choice);
+                            break;
+                    case (3):
+                        System.out.println(tree.check());
+                        break;
+                    case (4):
+                        exitStatus = 1;
+                        break;
+                }
+                if (exitStatus == 1) break;
+                System.out.println("----------\n" +
+                        "List of options :\n" +
+                        "1.Add new element\n" + "2.Delete element\n" +
+                        "3.Check tree\n" + "4.Exit\n");
+            }
+        } catch (Exception e) {
+            System.out.println("Something went wrong");
+        }
     }
 
     public static void linearProbingLDTest() {
-        LinearProbingLD ht = new LinearProbingLD<>();
+        LinearProbingLD<String,Integer> ht = new LinearProbingLD<>();
         ht.put("s", 1);
         ht.put("e", 2);
         ht.put("a", 3);
@@ -492,11 +553,12 @@ public class Menu {
         tst.clear();
         System.out.println("Number of " + L + "-letter substrings in string " + s + " is: " + num);
     }
+
     public static void testNumIfLStr() {
         TST<Integer> tst = new TST<>();
-        String s="cgcgggcgcg";
-        Integer L=3;
-        numOfSubstrings(s,L);
+        String s = "cgcgggcgcg";
+        Integer L = 3;
+        numOfSubstrings(s, L);
         System.out.println("List of options :\n" +
                 "1.Check another string\n" + "2.Exit\n");
         try {
@@ -516,11 +578,11 @@ public class Menu {
                         break;
                     case (1):
                         System.out.println("Input string\n");
-                        answer="";
-                        while (answer.equals("")){
+                        answer = "";
+                        while (answer.equals("")) {
                             answer = userInp.nextLine();
                         }
-                        s=answer;
+                        s = answer;
                         L = 0;
 
                         System.out.println("Input length of substrings\n");
@@ -534,7 +596,7 @@ public class Menu {
                             }
                         }
 
-                        numOfSubstrings(s,L);
+                        numOfSubstrings(s, L);
                         break;
                     case (2):
                         exitStatus = 1;
