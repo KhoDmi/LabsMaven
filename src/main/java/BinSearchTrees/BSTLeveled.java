@@ -25,15 +25,15 @@ public class BSTLeveled<Key extends Comparable<Key>, Value> {
     }
 
 
-    public Node getNodeByKey(Key key){
+    public Node getNodeByKey(Key key) {
         return getNodeByKey(root, key);
     }
 
     private Node getNodeByKey(Node node, Key key) {
         if (node == null) return null;
         int cmp = key.compareTo(node.key);
-        if (cmp < 0) return getNodeByKey(node.left,key);
-        else if (cmp > 0) return getNodeByKey(node.right,key);
+        if (cmp < 0) return getNodeByKey(node.left, key);
+        else if (cmp > 0) return getNodeByKey(node.right, key);
         else return node;
     }
 
@@ -138,7 +138,7 @@ public class BSTLeveled<Key extends Comparable<Key>, Value> {
 
         for (int i = 1; i <= lines; i++) {
             for (int j = 0; j < nodes.size(); j++) {
-                for (int k = 0; k < spaces - i ; k++)
+                for (int k = 0; k < spaces - i; k++)
                     System.out.print(" ");
                 if (nodes.get(j) == null) {
                     for (int k = 0; k < lines * 2 + i + 1; k++)

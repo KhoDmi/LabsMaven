@@ -14,7 +14,7 @@ public class Alphabet {
         for (int i = 0; i < alpha.length(); i++) {
             char c = alpha.charAt(i);
             if (duplicate[c])
-                throw new IllegalArgumentException("Illegal alphabet: repeated character " + c );
+                throw new IllegalArgumentException("Illegal alphabet: repeated character " + c);
             duplicate[c] = true;
         }
 
@@ -38,7 +38,7 @@ public class Alphabet {
 
     public int lgR() {
         int lgR = 0;
-        for (int t = R-1; t >= 1; t /= 2)
+        for (int t = R - 1; t >= 1; t /= 2)
             lgR++;
         return lgR;
     }
@@ -52,7 +52,7 @@ public class Alphabet {
 
     public int[] toIndices(String s) {
         char[] source = s.toCharArray();
-        int[] target  = new int[s.length()];
+        int[] target = new int[s.length()];
         for (int i = 0; i < source.length; i++)
             target[i] = toIndex(source[i]);
         return target;
@@ -61,15 +61,14 @@ public class Alphabet {
 
     public char toChar(int index) {
         if (index < 0 || index >= R) {
-            throw new IllegalArgumentException("Illegal index:index must be between 0 and " + R );
+            throw new IllegalArgumentException("Illegal index:index must be between 0 and " + R);
         }
         return alphabet[index];
     }
 
     public String toChars(int[] indices) {
         StringBuilder s = new StringBuilder(indices.length);
-        for (int i = 0; i < indices.length; i++)
-            s.append(toChar(indices[i]));
+        for (int index : indices) s.append(toChar(index));
         return s.toString();
     }
 

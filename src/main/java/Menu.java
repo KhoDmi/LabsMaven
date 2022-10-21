@@ -299,11 +299,10 @@ public class Menu {
                     case (1):
                         System.out.println("Input name\n");
                         String inp = userInp.nextLine();
-                        try{
-                             toAdd = new CaliforniaElectionCandidate(inp);
-                             candidates.add(toAdd);
-                        }
-                        catch(Exception e){
+                        try {
+                            toAdd = new CaliforniaElectionCandidate(inp);
+                            candidates.add(toAdd);
+                        } catch (Exception e) {
                             System.out.println(e.getMessage());
                         }
                         break;
@@ -327,7 +326,7 @@ public class Menu {
     }
 
     public static void binTreesTest() {
-        BSTLeveled<Integer,String> tree = new BSTLeveled<>();
+        BSTLeveled<Integer, String> tree = new BSTLeveled<>();
         tree.put(4, "q");
         tree.put(2, "w");
         tree.put(1, "e");
@@ -384,7 +383,7 @@ public class Menu {
     }
 
     public static void redBlackTreeVerificationTest() {
-        RedBlackBSTVerified<Integer,String> tree = new RedBlackBSTVerified<>();
+        RedBlackBSTVerified<Integer, String> tree = new RedBlackBSTVerified<>();
         tree.put(4, "q");
         tree.put(2, "w");
         tree.put(1, "e");
@@ -429,6 +428,7 @@ public class Menu {
                         while (answer.equals("")) {
                             answer = userInp.nextLine();
                         }
+                        tree.put(choice,answer);
                         break;
                     case (2):
                         System.out.println("Input key\n");
@@ -440,12 +440,12 @@ public class Menu {
                             System.out.println("Illegal key");
                             break;
                         }
-                        if (!tree.contains(choice)){
+                        if (!tree.contains(choice)) {
                             System.out.println("no such key");
                             break;
                         }
                         tree.delete(choice);
-                            break;
+                        break;
                     case (3):
                         System.out.println(tree.check());
                         break;
@@ -465,7 +465,7 @@ public class Menu {
     }
 
     public static void linearProbingLDTest() {
-        LinearProbingLD<String,Integer> ht = new LinearProbingLD<>();
+        LinearProbingLD<String, Integer> ht = new LinearProbingLD<>();
         ht.put("s", 1);
         ht.put("e", 2);
         ht.put("a", 3);

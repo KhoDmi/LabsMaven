@@ -91,11 +91,13 @@ public class RedBlackBSTVerified<Key extends Comparable<Key>, Value> {
         node.left = deleteMin(node.left);
         return balance(node);
     }
+
     public Key min() {
         if (isEmpty())
             return null;
         return min(root).key;
     }
+
     private Node min(Node node) {
         assert node != null;
         if (node.left == null)
@@ -142,12 +144,11 @@ public class RedBlackBSTVerified<Key extends Comparable<Key>, Value> {
     private Node delete(Node node, Key key) {
         assert contains(node, key);
 
-        if (key.compareTo(node.key) < 0)  {
+        if (key.compareTo(node.key) < 0) {
             if (!isRed(node.left) && !isRed(node.left.left))
                 node = moveRedLeft(node);
             node.left = delete(node.left, key);
-        }
-        else {
+        } else {
             if (isRed(node.left))
                 node = rotateRight(node);
             if (key.compareTo(node.key) == 0 && (node.right == null))
@@ -158,11 +159,11 @@ public class RedBlackBSTVerified<Key extends Comparable<Key>, Value> {
                 node.val = getValue(node.right, min(node.right).key);
                 node.key = min(node.right).key;
                 node.right = deleteMin(node.right);
-            }
-            else node.right = delete(node.right, key);
+            } else node.right = delete(node.right, key);
         }
         return balance(node);
     }
+
     private Node rotateLeft(Node node) {
         assert (node != null) && isRed(node.right);
         Node newnode = node.right;
