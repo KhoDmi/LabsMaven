@@ -2,7 +2,7 @@ package StringSorts;
 
 public class MSDsort {
 
-    private static final int CUTOFF = 15;
+    private static final int CUTOFF = 10;
 
 
     public static void sort(Alphabet alpha, String[] a) {

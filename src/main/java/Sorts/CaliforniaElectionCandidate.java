@@ -1,6 +1,5 @@
 package Sorts;
 
-import static java.sql.Types.NULL;
 
 public class CaliforniaElectionCandidate implements Comparable<CaliforniaElectionCandidate> {
 

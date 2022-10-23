@@ -7,10 +7,12 @@ import Sorts.CaliforniaElectionCandidate;
 import StringSorts.Alphabet;
 import StringSorts.LSDsort;
 import StringSorts.MSDsort;
+import SubstringSearch.CyclicSearch;
 import TernarySearchTrees.TST;
 
 
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class Menu {
     public static Scanner userInp = new Scanner(System.in);
@@ -25,8 +27,8 @@ public class Menu {
                         "1.Deque\n" + "2.CaliforniaElection\n" +
                         "3.BinTreePrint\n" + "4.RedBlackTreeVerification\n" +
                         "5.LazyDeletion\n" + "6.Alphabet\n" +
-                        "7.NumberOfLStrings\n" + "8.\n" +
-                        "9.\n" + "10.Exit\n");
+                        "7.NumberOfLStrings\n" + "8.CyclicSearch\n" +
+                        "9.RegularExpressions\n" + "10.Exit\n");
                 answer = userInp.nextLine();
                 int choice;
                 try {
@@ -74,10 +76,10 @@ public class Menu {
                         testNumIfLStr();
                         break;
                     case (8):
-
+                        testCyclicSearch();
                         break;
                     case (9):
-
+                        testRegEx();
                         break;
                     case (10):
                         exitStatus = 1;
@@ -281,7 +283,6 @@ public class Menu {
                 "1.addNewCandidate\n" + "2.sort\n" +
                 "3.Exit\n");
         try {
-            CaliforniaElectionCandidate toAdd;
             int exitStatus = 0;
             for (; ; ) {
                 answer = userInp.nextLine();
@@ -300,8 +301,7 @@ public class Menu {
                         System.out.println("Input name\n");
                         String inp = userInp.nextLine();
                         try {
-                            toAdd = new CaliforniaElectionCandidate(inp);
-                            candidates.add(toAdd);
+                            candidates.add(new CaliforniaElectionCandidate(inp));
                         } catch (Exception e) {
                             System.out.println(e.getMessage());
                         }
@@ -428,7 +428,7 @@ public class Menu {
                         while (answer.equals("")) {
                             answer = userInp.nextLine();
                         }
-                        tree.put(choice,answer);
+                        tree.put(choice, answer);
                         break;
                     case (2):
                         System.out.println("Input key\n");
@@ -557,7 +557,7 @@ public class Menu {
     public static void testNumIfLStr() {
         TST<Integer> tst = new TST<>();
         String s = "cgcgggcgcg";
-        Integer L = 3;
+        int L = 3;
         numOfSubstrings(s, L);
         System.out.println("List of options :\n" +
                 "1.Check another string\n" + "2.Exit\n");
@@ -565,7 +565,7 @@ public class Menu {
             int exitStatus = 0;
             for (; ; ) {
                 answer = userInp.nextLine();
-                Integer choice;
+                int choice;
                 try {
                     choice = Integer.parseInt(answer);
                 } catch (NumberFormatException e) {
@@ -606,6 +606,221 @@ public class Menu {
                 System.out.println("----------\n" +
                         "List of options :\n" +
                         "1.Check another string\n" + "2.Exit\n");
+            }
+        } catch (Exception e) {
+            System.out.println("Something went wrong");
+        }
+    }
+
+    public static void testCyclicSearch() {
+        CyclicSearch srch = new CyclicSearch("string");
+        System.out.println("Word 1: string");
+        System.out.print("Word 2: 'trings' - ");
+        System.out.println(srch.search("trings"));
+        System.out.print("Word 2: 'string ' - ");
+        System.out.println(srch.search("string "));
+        System.out.print("Word 2: 'strings' - ");
+        System.out.println(srch.search("strings"));
+        System.out.print("Word 2: 'ingstr' - ");
+        System.out.println(srch.search("ingstr"));
+        System.out.println("List of options :\n" +
+                "1.Change word 1\n" + "2.Search word 2\n" +
+                "3.Exit");
+        try {
+            int exitStatus = 0;
+            for (; ; ) {
+                answer = userInp.nextLine();
+                int choice;
+                try {
+                    choice = Integer.parseInt(answer);
+                } catch (NumberFormatException e) {
+                    choice = -1;
+                }
+                if (choice > 3) choice = 0;
+                switch (choice) {
+                    case (0):
+                        System.out.println("No such option, try again");
+                        break;
+                    case (1):
+                        System.out.println("Input string\n");
+                        answer = "";
+                        while (answer.equals("")) {
+                            answer = userInp.nextLine();
+                        }
+                        srch.setPattern(answer);
+                        break;
+                    case (2):
+                        System.out.println("Input string\n");
+                        answer = "";
+                        while (answer.equals("")) {
+                            answer = userInp.nextLine();
+                        }
+                        System.out.println(srch.search(answer));
+                        break;
+                    case (3):
+                        exitStatus = 1;
+                        break;
+                }
+                if (exitStatus == 1) break;
+                System.out.println("----------\n" +
+                        "List of options :\n" +
+                        "1.Change word 1\n" + "2.Search word 2\n" +
+                        "3.Exit");
+            }
+        } catch (Exception e) {
+            System.out.println("Something went wrong");
+        }
+    }
+
+    public static void testRegEx() {
+        System.out.println("Any string except 11 and 111");
+        String patOne = ".|(((11.0)|(110.)|(0.)|(10)|((11){2}))+.*)";
+        System.out.println("111 " + Pattern.matches(patOne, "111"));//false
+        System.out.println("11 " + Pattern.matches(patOne, "11"));//false
+        System.out.println("1 " + Pattern.matches(patOne, "1"));//true
+        System.out.println("01 " + Pattern.matches(patOne, "01"));//true
+        System.out.println("011 " + Pattern.matches(patOne, "011"));//true
+        System.out.println("00 " + Pattern.matches(patOne, "00"));//true
+        System.out.println("10 " + Pattern.matches(patOne, "10"));//true
+        System.out.println("1110 " + Pattern.matches(patOne, "1110"));//true
+        System.out.println("1111 " + Pattern.matches(patOne, "1111"));//true
+        System.out.println("01111 " + Pattern.matches(patOne, "01111"));//true
+        System.out.println("111111 " + Pattern.matches(patOne, "111111"));//true
+        System.out.println("\n1s at every odd position");
+        String patTwo = "(1.)+1?";
+        System.out.println("0 " + Pattern.matches(patTwo, "0"));//false
+        System.out.println("01 " + Pattern.matches(patTwo, "01"));//false
+        System.out.println("101001 " + Pattern.matches(patTwo, "101001"));//false
+        System.out.println("01110 " + Pattern.matches(patTwo, "01110"));//false
+        System.out.println("011 " + Pattern.matches(patTwo, "011"));//false
+        System.out.println("00 " + Pattern.matches(patTwo, "00"));//false
+        System.out.println("10 " + Pattern.matches(patTwo, "10"));//true
+        System.out.println("1110 " + Pattern.matches(patTwo, "1110"));//true
+        System.out.println("1111 " + Pattern.matches(patTwo, "1111"));//true
+        System.out.println("101111 " + Pattern.matches(patTwo, "101111"));//true
+        System.out.println("1011101 " + Pattern.matches(patTwo, "1011101"));//true
+        System.out.println("\nAt least two 0s and not more than one 1");
+        String patThree = "(1?00+)|(0+1?0+)|(00+1?)";
+        System.out.println("0 " + Pattern.matches(patThree, "0"));//false
+        System.out.println("01 " + Pattern.matches(patThree, "01"));//false
+        System.out.println("100001 " + Pattern.matches(patThree, "100001"));//false
+        System.out.println("1010 " + Pattern.matches(patThree, "1010"));//false
+        System.out.println("011 " + Pattern.matches(patThree, "011"));//false
+        System.out.println("0001 " + Pattern.matches(patThree, "0001"));//true
+        System.out.println("010 " + Pattern.matches(patThree, "010"));//true
+        System.out.println("001 " + Pattern.matches(patThree, "001"));//true
+        System.out.println("00 " + Pattern.matches(patThree, "00"));//true
+        System.out.println("100 " + Pattern.matches(patThree, "100"));//true
+        System.out.println("00000000 " + Pattern.matches(patThree, "00000000"));//true
+        System.out.println("00001000 " + Pattern.matches(patThree, "00001000"));//true
+        System.out.println("\nNo double 1s");
+        String patFour = ".?((01)|(0))*0?";
+        System.out.println("1011 " + Pattern.matches(patFour, "1011"));//false
+        System.out.println("11001 " + Pattern.matches(patFour, "11001"));//false
+        System.out.println("0011 " + Pattern.matches(patFour, "0011"));//false
+        System.out.println("01011 " + Pattern.matches(patFour, "01011"));//false
+        System.out.println("1 " + Pattern.matches(patFour, "1"));//true
+        System.out.println("01 " + Pattern.matches(patFour, "01"));//true
+        System.out.println("101 " + Pattern.matches(patFour, "101"));//true
+        System.out.println("001 " + Pattern.matches(patFour, "001"));//true
+        System.out.println("00 " + Pattern.matches(patFour, "00"));//true
+        System.out.println("100 " + Pattern.matches(patFour, "100"));//true
+        System.out.println("101010 " + Pattern.matches(patFour, "101010"));//true
+        System.out.println("0101001 " + Pattern.matches(patFour, "0101001"));//true
+
+        System.out.println("List of options :\n" +
+                "1.Test 1st expression\n" + "2.Test 2nd expression\n" +
+                "3.Test 3d expression\n" + "4.Test 4th expression\n" +
+                "5.Exit\n");
+        try {
+            int exitStatus = 0;
+            for (; ; ) {
+                answer = userInp.nextLine();
+                int goodAnswer;
+                int choice;
+                try {
+                    choice = Integer.parseInt(answer);
+                } catch (NumberFormatException e) {
+                    choice = -1;
+                }
+                if (choice > 5) choice = 0;
+                switch (choice) {
+                    case (0):
+                        System.out.println("No such option, try again");
+                        break;
+                    case (1):
+                        System.out.println("Any string except 11 and 111");
+                        System.out.println("Input string\n");
+                        answer = userInp.nextLine();
+                        goodAnswer = 1;
+                        for (int i = 0; i < answer.length(); i++) {
+                            if (answer.charAt(i) != '1' && answer.charAt(i) != '0') {
+                                goodAnswer = 0;
+                                break;
+                            }
+                        }
+                        if (goodAnswer == 1)
+                            System.out.println(Pattern.matches(patOne, answer));
+                        else
+                            System.out.println("Number must be binary");
+                        break;
+                    case (2):
+                        System.out.println("1s at every odd position");
+                        System.out.println("Input string\n");
+                        answer = userInp.nextLine();
+                        goodAnswer = 1;
+                        for (int i = 0; i < answer.length(); i++) {
+                            if (answer.charAt(i) != '1' && answer.charAt(i) != '0') {
+                                goodAnswer = 0;
+                                break;
+                            }
+                        }
+                        if (goodAnswer == 1)
+                            System.out.println(Pattern.matches(patTwo, answer));
+                        else
+                            System.out.println("Number must be binary");
+                        break;
+                    case (3):
+                        System.out.println("At least two 0s and not more than one 1");
+                        System.out.println("Input string\n");
+                        answer = userInp.nextLine();
+                        goodAnswer = 1;
+                        for (int i = 0; i < answer.length(); i++) {
+                            if (answer.charAt(i) != '1' && answer.charAt(i) != '0') {
+                                goodAnswer = 0;
+                                break;
+                            }
+                        }
+                        if (goodAnswer == 1)
+                            System.out.println(Pattern.matches(patThree, answer));
+                        else
+                            System.out.println("Number must be binary");
+                        break;
+                    case (4):
+                        System.out.println("No double 1s");
+                        System.out.println("Input string\n");
+                        answer = userInp.nextLine();
+                        goodAnswer = 1;
+                        for (int i = 0; i < answer.length(); i++) {
+                            if (answer.charAt(i) != '1' && answer.charAt(i) != '0') {
+                                goodAnswer = 0;
+                                break;
+                            }
+                        }
+                        if (goodAnswer == 1)
+                            System.out.println(Pattern.matches(patFour, answer));
+                        else
+                            System.out.println("Number must be binary");
+                        break;
+                    case (5):
+                        exitStatus = 1;
+                        break;
+                }
+                if (exitStatus == 1) break;
+                System.out.println("List of options :\n" +
+                        "1.Test 1st expression\n" + "2.Test 2nd expression\n" +
+                        "3.Test 3d expression\n" + "4.Test 4th expression\n" +
+                        "5.Exit\n");
             }
         } catch (Exception e) {
             System.out.println("Something went wrong");

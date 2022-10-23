@@ -42,8 +42,8 @@ public class ResizeDeque<Item> implements Iterable<Item> {
 
     public Item popLeft() {
         Item item = elements[0];
-        for (int i = 0; i < numOfElements-1; i++)
-            elements[i] = elements[i+1];
+        for (int i = 0; i < numOfElements - 1; i++)
+            elements[i] = elements[i + 1];
         elements[--numOfElements] = null;
         if (numOfElements < elements.length / 4) resize(elements.length / 2);
         return item;

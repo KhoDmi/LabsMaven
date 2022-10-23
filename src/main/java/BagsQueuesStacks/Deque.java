@@ -49,7 +49,7 @@ public class Deque<Item> implements Iterable<Item> {
 
     public Item popLeft() {
         Item item = first.elements;
-        if (numOfElements==1) {
+        if (numOfElements == 1) {
             first = null;
             last = null;
         } else {
@@ -62,7 +62,7 @@ public class Deque<Item> implements Iterable<Item> {
 
     public Item popRight() {
         Item item = last.elements;
-        if (numOfElements==1) {
+        if (numOfElements == 1) {
             first = null;
             last = null;
         } else {
