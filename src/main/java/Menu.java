@@ -5,8 +5,8 @@ import BinSearchTrees.BSTLeveled;
 import HashTable.LinearProbingLD;
 import Sorts.CaliforniaElectionCandidate;
 import StringSorts.Alphabet;
-import StringSorts.LSDsort;
-import StringSorts.MSDsort;
+import StringSorts.LSDSort;
+import StringSorts.MSDSort;
 import SubstringSearch.CyclicSearch;
 import TernarySearchTrees.TST;
 
@@ -394,7 +394,7 @@ public class Menu {
         tree.put(8, "i");
         tree.put(5, "o");
         tree.put(0, "p");
-        System.out.println(tree.check());
+        System.out.println(tree.isRedBlackBST());
         System.out.println("List of options :\n" +
                 "1.Add new element\n" + "2.Delete element\n" +
                 "3.Check tree\n" + "4.Exit\n");
@@ -419,7 +419,6 @@ public class Menu {
                         try {
                             choice = Integer.parseInt(answer);
                         } catch (NumberFormatException e) {
-                            choice = null;
                             System.out.println("Illegal key");
                             break;
                         }
@@ -436,7 +435,6 @@ public class Menu {
                         try {
                             choice = Integer.parseInt(answer);
                         } catch (NumberFormatException e) {
-                            choice = null;
                             System.out.println("Illegal key");
                             break;
                         }
@@ -447,7 +445,7 @@ public class Menu {
                         tree.delete(choice);
                         break;
                     case (3):
-                        System.out.println(tree.check());
+                        System.out.println(tree.isRedBlackBST());
                         break;
                     case (4):
                         exitStatus = 1;
@@ -483,11 +481,22 @@ public class Menu {
         ht.delete("x");
         System.out.println("Table size after 1 Lazy deletion:" + ht.size());
         ht.delete("a");
+        ht.put("a",1);
+        ht.delete("m");
+        ht.put("m",2);
+        ht.delete("p");
+        ht.put("p",3);
+        ht.delete("l");
+        ht.delete("e");
+        ht.put("l",4);
+        ht.put("e",5);
+        System.out.println("Table size after 6 Lazy deletions and 5 rewrites :" + ht.size());
+        ht.delete("a");
         ht.delete("m");
         ht.delete("p");
         ht.delete("l");
         ht.delete("e");
-        System.out.println("Table size after 6 Lazy deletions (which leads to resize):" + ht.size());
+        System.out.println("Table size after 5 more Lazy deletions (which leads to resize):" + ht.size());
     }
 
     public static void alphabetTest() {
@@ -502,12 +511,16 @@ public class Menu {
         arrayToSortLSD[5] = "cat";
         arrayToSortLSD[6] = "yep";
         arrayToSortLSD[7] = "yet";
-        LSDsort.sort(alpha, arrayToSortLSD, 3);
-        System.out.print("Sorted LSD array:");
-        for (String s : arrayToSortLSD) {
-            System.out.print(" " + s);
+        try {
+            LSDSort.sort(alpha, arrayToSortLSD, 3);
+            System.out.print("Sorted LSD array:");
+            for (String s : arrayToSortLSD) {
+                System.out.print(" " + s);
+            }
+            System.out.println();
+        } catch (Exception e){
+            System.out.println(e.getMessage());
         }
-        System.out.println();
         System.out.println("----------");
 
         String[] arrayToSortMSD = new String[14];
@@ -527,12 +540,16 @@ public class Menu {
         arrayToSortMSD[11] = "are";
         arrayToSortMSD[12] = "surely";
         arrayToSortMSD[13] = "seashells";
-        MSDsort.sort(alpha, arrayToSortMSD);
-        System.out.print("Sorted MSD array:");
-        for (String s : arrayToSortMSD) {
-            System.out.print(" " + s);
+        try {
+            MSDSort.sort(alpha, arrayToSortMSD);
+            System.out.print("Sorted MSD array:");
+            for (String s : arrayToSortMSD) {
+                System.out.print(" " + s);
+            }
+            System.out.println();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
-        System.out.println();
         System.out.println("----------");
     }
 

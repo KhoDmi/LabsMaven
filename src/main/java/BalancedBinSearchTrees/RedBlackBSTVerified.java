@@ -63,7 +63,7 @@ public class RedBlackBSTVerified<Key extends Comparable<Key>, Value> {
     public void put(Key key, Value val) {
         root = put(root, key, val);
         root.color = BLACK;
-        assert check();
+        assert isRedBlackBST();
     }
 
     public void delete(Key key) {
@@ -78,7 +78,7 @@ public class RedBlackBSTVerified<Key extends Comparable<Key>, Value> {
         root = delete(root, key);
         if (!isEmpty())
             root.color = BLACK;
-        assert check();
+        assert isRedBlackBST();
     }
 
     private Node deleteMin(Node node) {
@@ -217,7 +217,7 @@ public class RedBlackBSTVerified<Key extends Comparable<Key>, Value> {
         return node;
     }
 
-    public boolean check() {
+    public boolean isRedBlackBST() {
         if (!isBST()) System.out.println("Not in symmetric order");
         if (!is23()) System.out.println("Not a 2-3 tree");
         if (!isBalanced()) System.out.println("Not balanced");

@@ -1,6 +1,6 @@
 package StringSorts;
 
-public class MSDsort {
+public class MSDSort {
 
     private static final int CUTOFF = 10;
 

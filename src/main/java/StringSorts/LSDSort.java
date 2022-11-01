@@ -1,16 +1,8 @@
 package StringSorts;
 
-public class LSDsort {
+public class LSDSort {
 
     public static void sort(Alphabet alpha, String[] strings, int wordLength) {
-        for (int j = 0; j < strings.length; j++) {
-            {
-                for (int i = 0; i < strings[j].length(); i++) {
-                    if (!alpha.contains(strings[j].charAt(i)))
-                        throw new IllegalArgumentException("No such character in the alphabet " + strings[j].charAt(i));
-                }
-            }
-        }
         int length = strings.length;
         int R = alpha.radix();
         String[] aux = new String[length];
