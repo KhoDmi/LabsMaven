@@ -555,24 +555,19 @@ public class Menu {
 
     public static void numOfSubstrings(String s, int L) {
         TST<Integer> tst = new TST<>();
-        tst.clear();
-        int num = 0;
-        String subs;
+        String subString;
         for (int i = 0; i < s.length() - L; i++) {
-            subs = s.substring(i, i + L);
-            if (tst.containsNullKey(subs))
+            subString = s.substring(i, i + L);
+            if (tst.contains(subString))
                 continue;
-            tst.put(subs, null);
-            num++;
-            System.out.print("Unique key " + num + ": ");
-            System.out.println(subs);
+            tst.put(subString, 1);
+            System.out.print("Unique key " + tst.size() + ": ");
+            System.out.println(subString);
         }
-        tst.clear();
-        System.out.println("Number of " + L + "-letter substrings in string " + s + " is: " + num);
+        System.out.println("Number of " + L + "-letter substrings in string " + s + " is: " + tst.size());
     }
 
     public static void testNumIfLStr() {
-        TST<Integer> tst = new TST<>();
         String s = "cgcgggcgcg";
         int L = 3;
         numOfSubstrings(s, L);

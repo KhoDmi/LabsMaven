@@ -22,9 +22,6 @@ public class TST<Value> {
         this.root = null;
     }
 
-    public boolean containsNullKey(String key) {
-        return get(root, key, 0) != null;
-    }
 
     public Value get(String key) {
         if (key == null || key.length() == 0)
