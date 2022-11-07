@@ -625,16 +625,16 @@ public class Menu {
     }
 
     public static void testCyclicSearch() {
-        CyclicSearch srch = new CyclicSearch("string");
+        CyclicSearch search = new CyclicSearch("string");
         System.out.println("Word 1: string");
         System.out.print("Word 2: 'trings' - ");
-        System.out.println(srch.search("trings"));
+        System.out.println(search.search("trings"));
         System.out.print("Word 2: 'string ' - ");
-        System.out.println(srch.search("string "));
+        System.out.println(search.search("string "));
         System.out.print("Word 2: 'strings' - ");
-        System.out.println(srch.search("strings"));
+        System.out.println(search.search("strings"));
         System.out.print("Word 2: 'ingstr' - ");
-        System.out.println(srch.search("ingstr"));
+        System.out.println(search.search("ingstr"));
         System.out.println("List of options :\n" +
                 "1.Change word 1\n" + "2.Search word 2\n" +
                 "3.Exit");
@@ -659,7 +659,7 @@ public class Menu {
                         while (answer.equals("")) {
                             answer = userInp.nextLine();
                         }
-                        srch.setPattern(answer);
+                        search.setPattern(answer);
                         break;
                     case (2):
                         System.out.println("Input string\n");
@@ -667,7 +667,7 @@ public class Menu {
                         while (answer.equals("")) {
                             answer = userInp.nextLine();
                         }
-                        System.out.println(srch.search(answer));
+                        System.out.println(search.search(answer));
                         break;
                     case (3):
                         exitStatus = 1;

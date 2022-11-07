@@ -8,16 +8,16 @@ public class CyclicSearch {
         setPattern(pat);
     }
 
-    public void setPattern(String pat) {
-        this.pat = pat;
-        int patSz = pat.length();
-        dfa = new int[256][patSz];
-        dfa[pat.charAt(0)][0] = 1;
-        for (int i = 0, j = 1; j < patSz; j++) {
+    public void setPattern(String pattern) {
+        this.pat = pattern;
+        int patternSize = pattern.length();
+        dfa = new int[256][patternSize];
+        dfa[pattern.charAt(0)][0] = 1;
+        for (int i = 0, j = 1; j < patternSize; j++) {
             for (int c = 0; c < 256; c++)
                 dfa[c][j] = dfa[c][i];
-            dfa[pat.charAt(j)][j] = j + 1;
-            i = dfa[pat.charAt(j)][i];
+            dfa[pattern.charAt(j)][j] = j + 1;
+            i = dfa[pattern.charAt(j)][i];
         }
     }
 
