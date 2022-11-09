@@ -686,7 +686,7 @@ public class Menu {
 
     public static void testRegEx() {
         System.out.println("Any string except 11 and 111");
-        String patOne = "([10])|(((11([10])0)|(110([10]))|(0([10]))|(10)|((11){2}))+([10])*)";
+        String patOne = "[10]|(((11[10]0)|(110[10]?)|(0[10])|(10)|((11){2}))+[10]*)";
         System.out.println("111 " + Pattern.matches(patOne, "111"));//false
         System.out.println("11 " + Pattern.matches(patOne, "11"));//false
         System.out.println("1 " + Pattern.matches(patOne, "1"));//true
@@ -699,7 +699,7 @@ public class Menu {
         System.out.println("01111 " + Pattern.matches(patOne, "01111"));//true
         System.out.println("111111 " + Pattern.matches(patOne, "111111"));//true
         System.out.println("\n1s at every odd position");
-        String patTwo = "(1([10]))+1?";
+        String patTwo = "(1[10])+1?";
         System.out.println("0 " + Pattern.matches(patTwo, "0"));//false
         System.out.println("01 " + Pattern.matches(patTwo, "01"));//false
         System.out.println("101001 " + Pattern.matches(patTwo, "101001"));//false
@@ -726,7 +726,7 @@ public class Menu {
         System.out.println("00000000 " + Pattern.matches(patThree, "00000000"));//true
         System.out.println("00001000 " + Pattern.matches(patThree, "00001000"));//true
         System.out.println("\nNo double 1s");
-        String patFour = "([10])?((01)|(0))*0?";
+        String patFour = "[10]?((01)|(0))*0?";
         System.out.println("1011 " + Pattern.matches(patFour, "1011"));//false
         System.out.println("11001 " + Pattern.matches(patFour, "11001"));//false
         System.out.println("0011 " + Pattern.matches(patFour, "0011"));//false
